@@ -2,7 +2,6 @@ const initialState = {
   data:[]
 }
 const favouriteReducer = (state = initialState, action) => {
-  console.log(action.payload)
   switch(action.type) {
     case 'ADD_FAVOURITE':
       return {...state, data:[...state.data, action.payload]};

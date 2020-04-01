@@ -11,15 +11,12 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-// const logo = require('./50n.png')
-
 const cardStyle = makeStyles({
   root: {
     width: 150,
     height:170
   },
 });
-
 
 
 function WeatherBox({getInitialState=true}) {
@@ -40,7 +37,7 @@ function WeatherBox({getInitialState=true}) {
       dispatch(getCurrentWeather(query));
       dispatch(getForecastWeather(query));
     }
-    console.log(navigator)
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(getPosition);
     }
@@ -63,47 +60,6 @@ function WeatherBox({getInitialState=true}) {
     dispatch(deleteFavourite(city));
   }
 
-  const handleIcon = (iconName) => {
-    switch(iconName) {
-      case '01d':
-        return (<img src={require('./../assets/01d.png')} width={80} />);
-      case '01n':
-        return (<img src={require('./../assets/01n.png')} width={80} />);
-      case '02d':
-        return (<img src={require('./../assets/02d.png')} width={80} />);
-      case '02n':
-        return (<img src={require('./../assets/02n.png')} width={80} />);
-      case '03d':
-        return (<img src={require('./../assets/03d.png')} width={80} />);  
-      case '03n':
-        return (<img src={require('./../assets/03n.png')} width={80}/>);
-      case '04d':
-        return (<img src={require('./../assets/04d.png')} width={80}/>);
-      case '04n':
-        return (<img src={require('./../assets/04n.png')} width={80} />);
-      case '09d':
-        return (<img src={require('./../assets/09d.png')} width={80} />);
-      case '09n':
-        return (<img src={require('./../assets/09n.png')} width={80} />);
-      case '10d':
-        return (<img src={require('./../assets/10d.png')} width={80} />);
-      case '10n':
-        return (<img src={require('./../assets/10n.png')} width={80} />);
-      case '11d':
-        return (<img src={require('./../assets/11d.png')} width={80} />);
-      case '11n':
-        return (<img src={require('./../assets/11n.png')} width={80} />);
-      case '13d':
-        return (<img src={require('./../assets/13d.png')} width={80} />);
-      case '13n':
-        return (<img src={require('./../assets/13n.png')} width={80} />);
-      case '50d':
-        return (<img src={require('./../assets/50d.png')} width={80} />);
-      case '50n':
-        return (<img src={require('./../assets/50n.png')} width={80} />);
-    }
-  }
-  
   return (
     <>
       <Card>
@@ -135,8 +91,8 @@ function WeatherBox({getInitialState=true}) {
                     
                   }
                   
-                  <p>{currentWeather.data.name}, {currentWeather.data.sys.country}</p>
-                  <p>{moment().format('MMMM Do YYYY | dddd H:mm A')}</p>
+                  <h2>{currentWeather.data.name}, {currentWeather.data.sys.country}</h2>
+                  <h4>{moment().format('MMMM Do YYYY | dddd H:mm A')}</h4>
                 </Grid>
                 <Grid
                   container
@@ -144,7 +100,7 @@ function WeatherBox({getInitialState=true}) {
                   justify="center"
                   alignItems="center"
                 >
-                  <p>{Math.round(currentWeather.data.main.temp)}<sup>o</sup>C</p>
+                  <h4>{Math.round(currentWeather.data.main.temp)}<sup>o</sup>C</h4>
                   {handleIcon(currentWeather.data.weather[0].icon)}
                 </Grid>
                 <Grid
@@ -153,16 +109,25 @@ function WeatherBox({getInitialState=true}) {
                   justify="center"
                   alignItems="center"
                 >
-                  <p>{currentWeather.data.weather[0].description}</p>
+                  <h4>{currentWeather.data.weather[0].description}</h4>
                 </Grid>
                 <Grid
                   container
                   direction="row"
                   justify="center"
                   alignItems="center"
+                  spacing={5}
                 >
-                  <p>humidity: {currentWeather.data.main.humidity}%</p> ~~
-                  <p>wind speed: {Math.round(currentWeather.data.wind.speed*3.6)}km/h</p>
+                  <h4>humidity: {currentWeather.data.main.humidity}%</h4>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                  spacing={5}
+                >
+                  <h4>wind speed: {Math.round(currentWeather.data.wind.speed*3.6)}km/h</h4>
                 </Grid>
                
               </>
@@ -188,11 +153,11 @@ function WeatherBox({getInitialState=true}) {
             {
               forecastWeather.data ?
                 <>
-                  {forecastWeather.data.list.map(item => {
+                  {forecastWeather.data.list.map((item, i) => {
                     if(moment.unix(item.dt).format('MMMM Do YYYY') === dayState) {
                       return (
                         <>
-                          <Card className={cardClass.root}>
+                          <Card className={cardClass.root} key={i}>
                             {handleIcon(item.weather[0].icon)}
                             <CardContent
                               color="textSecondary"
@@ -238,7 +203,7 @@ function WeatherBox({getInitialState=true}) {
                     >
                       {moment().add(day,'days').format('dddd')} 
                     </Button>
-                    <p>-</p>
+                    <p style={{color:"white"}}>-----</p>
                   </>
                 )
               })
@@ -249,6 +214,47 @@ function WeatherBox({getInitialState=true}) {
       </Card>
     </>
   )
+}
+
+const handleIcon = (iconName) => {
+  switch(iconName) {
+    case '01d':
+      return (<img src={require('./../assets/01d.png')} width={80} />);
+    case '01n':
+      return (<img src={require('./../assets/01n.png')} width={80} />);
+    case '02d':
+      return (<img src={require('./../assets/02d.png')} width={80} />);
+    case '02n':
+      return (<img src={require('./../assets/02n.png')} width={80} />);
+    case '03d':
+      return (<img src={require('./../assets/03d.png')} width={80} />);  
+    case '03n':
+      return (<img src={require('./../assets/03n.png')} width={80}/>);
+    case '04d':
+      return (<img src={require('./../assets/04d.png')} width={80}/>);
+    case '04n':
+      return (<img src={require('./../assets/04n.png')} width={80} />);
+    case '09d':
+      return (<img src={require('./../assets/09d.png')} width={80} />);
+    case '09n':
+      return (<img src={require('./../assets/09n.png')} width={80} />);
+    case '10d':
+      return (<img src={require('./../assets/10d.png')} width={80} />);
+    case '10n':
+      return (<img src={require('./../assets/10n.png')} width={80} />);
+    case '11d':
+      return (<img src={require('./../assets/11d.png')} width={80} />);
+    case '11n':
+      return (<img src={require('./../assets/11n.png')} width={80} />);
+    case '13d':
+      return (<img src={require('./../assets/13d.png')} width={80} />);
+    case '13n':
+      return (<img src={require('./../assets/13n.png')} width={80} />);
+    case '50d':
+      return (<img src={require('./../assets/50d.png')} width={80} />);
+    case '50n':
+      return (<img src={require('./../assets/50n.png')} width={80} />);
+  }
 }
 
 export default geolocated({
