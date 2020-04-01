@@ -22,6 +22,7 @@ const cardStyle = makeStyles({
 function WeatherBox({getInitialState=true}) {
   const cardClass = cardStyle();
   const [dayState, setDay] = useState(moment().format('MMMM Do YYYY'));
+  const [temperatureState, setTemperature] = useState('C');
   const currentWeather = useSelector(state => state.currentWeather);
   const forecastWeather = useSelector(state => state.forecastWeather);
   const favouriteHandler = useSelector(state => state.favouriteHandler);
@@ -58,6 +59,14 @@ function WeatherBox({getInitialState=true}) {
 
   const handleDeleteFavouriteClick = (city) => {
     dispatch(deleteFavourite(city));
+  }
+
+  const handleTemperatureState = (temperatureType) => {
+    if(temperatureType === 'F') {
+      setTemperature('F');
+    } else {
+      setTemperature('C');
+    }
   }
 
   return (
@@ -100,7 +109,11 @@ function WeatherBox({getInitialState=true}) {
                   justify="center"
                   alignItems="center"
                 >
-                  <h4>{Math.round(currentWeather.data.main.temp)}<sup>o</sup>C</h4>
+                  {temperatureState === 'C' ? 
+                    <h4>{Math.round(currentWeather.data.main.temp)}<sup>o</sup>C</h4>:
+                    <h4>{Math.round(((currentWeather.data.main.temp)*9/5)+32)}<sup>o</sup>F</h4>
+                  }
+                  
                   {handleIcon(currentWeather.data.weather[0].icon)}
                 </Grid>
                 <Grid
@@ -169,14 +182,17 @@ function WeatherBox({getInitialState=true}) {
                                 alignItems="center"
                                 container spacing={10}
                               >
-                                <h6>{Math.round(item.main.temp)}<sup>o</sup>C - {item.weather[0].description}</h6>
+                                {temperatureState === 'C' ? 
+                                  <h6>{Math.round(item.main.temp)}<sup>o</sup>C - {item.weather[0].description}</h6>:
+                                  <h6>{Math.round(((item.main.temp)*9/5)+32)}<sup>o</sup>F - {item.weather[0].description}</h6>
+                                }
+                                
                                 <h6>{moment.unix(item.dt).format('H:mm A')}</h6>
                               </Grid>
                             </CardContent>
                           </Card>
                         </>
-                      )
-                      
+                      ) 
                     }
                   })
                   }
@@ -209,7 +225,29 @@ function WeatherBox({getInitialState=true}) {
               })
             }
           </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            {temperatureState === 'C' ?
+              <Button
+                color="primary"
+                onClick={handleTemperatureState.bind(this, 'F')}
+              >
+                Change to Fahrenheit
+              </Button>
+              :
+              <Button
+                color="primary"
+                onClick={handleTemperatureState.bind(this, 'C')}
+              >
+                Change to Celcius
+              </Button>
           
+            }
+          </Grid>
         </CardContent>
       </Card>
     </>
