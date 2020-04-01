@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,6 +9,15 @@ import WeatherBox from './WeatherBox';
 export default function FavouriteTab() {
   const favouriteHandler = useSelector(state => state.favouriteHandler);
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if(favouriteHandler.data.length>0) {
+      const query = `q=${favouriteHandler.data[0]}`
+      dispatch(getCurrentWeather(query));
+      dispatch(getForecastWeather(query));
+    }
+  },[])
 
   const handleFavouriteClick = (city) => {
     const query = `q=${city}`;
@@ -36,7 +45,9 @@ export default function FavouriteTab() {
             </>
           )}
         </Grid>
-        <WeatherBox/>
+        <WeatherBox
+          getInitialState={false}
+        />
       </>
 
       :<p>No favourite has been selected</p>}

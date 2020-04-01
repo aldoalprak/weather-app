@@ -22,7 +22,7 @@ const cardStyle = makeStyles({
 
 
 
-function WeatherBox() {
+function WeatherBox({getInitialState}) {
   const cardClass = cardStyle();
   const [dayState, setDay] = useState(moment().format('MMMM Do YYYY'));
   const currentWeather = useSelector(state => state.currentWeather);
@@ -32,6 +32,7 @@ function WeatherBox() {
 
   useEffect(() => {
     //initialize value
+    if(!getInitialState) return //to prevent code running when open favourite tab
     let query;
     function getPosition(position) {
       query=`lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
