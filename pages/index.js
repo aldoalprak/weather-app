@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -13,7 +13,6 @@ import FavouriteTab from '../components/FavouriteTab';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    // backgroundColor: theme.palette.background.paper,
   },
 }));
 
@@ -67,8 +66,5 @@ export default function Home(props) {
       <FavouriteTab/>
     </TabPanel>
    </div>
-   
   )  
 }
-
-// Home.getInitialProps = ({store}) => {}
