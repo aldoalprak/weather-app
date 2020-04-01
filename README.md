@@ -9,6 +9,7 @@ npm install
 npm run dev
 
 ```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Key Features
 
@@ -16,6 +17,4 @@ npm run dev
 2. Forecast Weather for 5 days ahead
 3. Adding Favourite location
 4. Temperature converter
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
