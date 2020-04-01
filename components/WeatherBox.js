@@ -16,13 +16,13 @@ import { makeStyles } from '@material-ui/core/styles';
 const cardStyle = makeStyles({
   root: {
     width: 150,
-    height:150
+    height:170
   },
 });
 
 
 
-function WeatherBox({getInitialState}) {
+function WeatherBox({getInitialState=true}) {
   const cardClass = cardStyle();
   const [dayState, setDay] = useState(moment().format('MMMM Do YYYY'));
   const currentWeather = useSelector(state => state.currentWeather);
@@ -61,6 +61,47 @@ function WeatherBox({getInitialState}) {
 
   const handleDeleteFavouriteClick = (city) => {
     dispatch(deleteFavourite(city));
+  }
+
+  const handleIcon = (iconName) => {
+    switch(iconName) {
+      case '01d':
+        return (<img src={require('./../assets/01d.png')} width={80} />);
+      case '01n':
+        return (<img src={require('./../assets/01n.png')} width={80} />);
+      case '02d':
+        return (<img src={require('./../assets/02d.png')} width={80} />);
+      case '02n':
+        return (<img src={require('./../assets/02n.png')} width={80} />);
+      case '03d':
+        return (<img src={require('./../assets/03d.png')} width={80} />);  
+      case '03n':
+        return (<img src={require('./../assets/03n.png')} width={80}/>);
+      case '04d':
+        return (<img src={require('./../assets/04d.png')} width={80}/>);
+      case '04n':
+        return (<img src={require('./../assets/04n.png')} width={80} />);
+      case '09d':
+        return (<img src={require('./../assets/09d.png')} width={80} />);
+      case '09n':
+        return (<img src={require('./../assets/09n.png')} width={80} />);
+      case '10d':
+        return (<img src={require('./../assets/10d.png')} width={80} />);
+      case '10n':
+        return (<img src={require('./../assets/10n.png')} width={80} />);
+      case '11d':
+        return (<img src={require('./../assets/11d.png')} width={80} />);
+      case '11n':
+        return (<img src={require('./../assets/11n.png')} width={80} />);
+      case '13d':
+        return (<img src={require('./../assets/13d.png')} width={80} />);
+      case '13n':
+        return (<img src={require('./../assets/13n.png')} width={80} />);
+      case '50d':
+        return (<img src={require('./../assets/50d.png')} width={80} />);
+      case '50n':
+        return (<img src={require('./../assets/50n.png')} width={80} />);
+    }
   }
   
   return (
@@ -104,7 +145,7 @@ function WeatherBox({getInitialState}) {
                   alignItems="center"
                 >
                   <p>{Math.round(currentWeather.data.main.temp)}<sup>o</sup>C</p>
-                  <img src={require("./../assets/03n.png")} />
+                  {handleIcon(currentWeather.data.weather[0].icon)}
                 </Grid>
                 <Grid
                   container
@@ -152,7 +193,7 @@ function WeatherBox({getInitialState}) {
                       return (
                         <>
                           <Card className={cardClass.root}>
-                            <img src={require("./../assets/03n.png")} />
+                            {handleIcon(item.weather[0].icon)}
                             <CardContent
                               color="textSecondary"
                             >  
@@ -164,7 +205,7 @@ function WeatherBox({getInitialState}) {
                                 container spacing={10}
                               >
                                 <h6>{Math.round(item.main.temp)}<sup>o</sup>C - {item.weather[0].description}</h6>
-                                <h5>{moment.unix(item.dt).format('H:mm A')}</h5>
+                                <h6>{moment.unix(item.dt).format('H:mm A')}</h6>
                               </Grid>
                             </CardContent>
                           </Card>
