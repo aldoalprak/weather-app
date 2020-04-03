@@ -7,7 +7,6 @@ import TestApp from "../pages/testJest";
 describe("With Enzyme", () => {
   it('App shows "Hello, World!"', () => {
     const app = shallow(<TestApp />);
-
     expect(app.find("div").text()).toEqual("Hello, World!");
   });
 });
