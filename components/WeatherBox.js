@@ -101,7 +101,7 @@ function WeatherBox({getInitialState=true}) {
                   }
                   
                   <h2>{currentWeather.data.name}, {currentWeather.data.sys.country}</h2>
-                  <h4>{moment().format('MMMM Do YYYY | dddd H:mm A')}</h4>
+                  <h4>{moment.utc().add(currentWeather.data.timezone, 'seconds').format('MMMM Do YYYY | dddd H:mm A')}</h4>
                 </Grid>
                 <Grid
                   container

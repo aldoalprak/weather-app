@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import React from 'react';
 import store from '../redux/store';
 import withRedux from 'next-redux-wrapper';
-
+import withReactRouter from '../next/with-react-router';
 class WeatherApp extends App {
   static async getInitialProps({Component, ctx}) {
     const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
@@ -29,4 +29,4 @@ class WeatherApp extends App {
 
 const makeStore = () => store;
 
-export default withRedux(makeStore)(WeatherApp);
+export default withReactRouter(withRedux(makeStore)(WeatherApp));
