@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const nextJS = require('next');
 const { isBlockedPage, isInternalUrl } = require('next-server/dist/server/utils');
@@ -43,9 +44,9 @@ async function start() {
     }
   });
 
-  server.listen(3000, err => {
+  server.listen(process.env.PORT, err => {
     if (err) throw err;
-    console.log(`> Ready on http://localhost:3000`);
+    console.log(`> Ready on ${process.env.PORT}`);
   });
 }
 
