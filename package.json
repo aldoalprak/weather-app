@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next-build",
+    "build": "next build",
     "gcp-build": "npm run build",
     "dev": "nodemon server.js",
     "start": "node server.js",
