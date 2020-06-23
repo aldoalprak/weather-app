@@ -47,6 +47,14 @@ function WeatherBox({getInitialState=true}) {
     dispatch(getForecastWeather());
   },[])
 
+  useEffect(() => {
+    console.log(currentWeather)
+    if(currentWeather.data) {
+      setDay(moment.utc().add(currentWeather.data.timezone, 'seconds').format('MMMM Do YYYY'));
+    }
+    
+  }, [currentWeather])
+
   const handleForecastClick = (day) => {
     const nextDay = moment().add(day, 'days').format('MMMM Do YYYY');
     setDay(nextDay);
@@ -167,7 +175,8 @@ function WeatherBox({getInitialState=true}) {
               forecastWeather.data ?
                 <>
                   {forecastWeather.data.list.map((item, i) => {
-                    if(moment.unix(item.dt).format('MMMM Do YYYY') === dayState) {
+                    console.log(moment.unix(item.dt).add(forecastWeather.data.city.timezone, 'seconds').format('MMMM Do YYYY'))
+                    if(moment.unix(item.dt).add(forecastWeather.data.city.timezone, 'seconds').format('MMMM Do YYYY') === dayState) {
                       return (
                         <>
                           <Card className={cardClass.root} key={i}>
@@ -187,7 +196,7 @@ function WeatherBox({getInitialState=true}) {
                                   <h6>{Math.round(((item.main.temp)*9/5)+32)}<sup>o</sup>F - {item.weather[0].description}</h6>
                                 }
                                 
-                                <h6>{moment.unix(item.dt).format('H:mm A')}</h6>
+                                <h6>{moment.unix(item.dt).add(forecastWeather.data.city.timezone  , 'seconds').format('H:mm A')}</h6>
                               </Grid>
                             </CardContent>
                           </Card>
