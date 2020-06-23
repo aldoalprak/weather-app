@@ -1,3 +1,4 @@
 runtime: nodejs10
 env_variables: 
   WEATHER_API_KEY: "828aebb97dc316555aae9135cb5c241c"
+  PORT: "8080"
